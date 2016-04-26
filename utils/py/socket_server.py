@@ -14,11 +14,10 @@ socket_server.py - Python code for serving a socket on an IP address
     GNU General Public License for more details.
 '''
 
-
 import time
 import socket
 
-def listen(port):
+def accept(port):
     '''
     Serves a blocking socket on the specified port.  Returns a new socket object 
     representing the client, on which send() and recv() can be invoked.
@@ -55,3 +54,6 @@ def listen(port):
         exit(1)
 
     return client
+
+def close(client):
+    client.close()

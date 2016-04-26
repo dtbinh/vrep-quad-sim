@@ -1,5 +1,5 @@
 --[[
-quad_client.lua - The processing script of quad, executed from VREP simulator.
+quad_init.lua - The initializing script of quad, executed from VREP simulator.
 
 	Copyright (c) 2016 Dariush Hasanpour
 
@@ -21,3 +21,21 @@ quad_client.lua - The processing script of quad, executed from VREP simulator.
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
 ]]--
+
+-- Thread switch configs
+simSetThreadSwitchTiming(2)
+simSetThreadAutomaticSwitch(true)
+
+-- get quad's handle
+quad = simGetObjectHandle('Quadricopter_base')
+
+-- connect with server
+server = server_connect(PWD..'/quad_server.py')
+
+-- initiate a handshake
+initiate_handshake(server)
+
+-- close the connection
+server_close(server);
+
+simStopSimulation()
