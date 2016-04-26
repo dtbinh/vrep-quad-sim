@@ -2,6 +2,7 @@
 
 import os
 import time
+import struct
 import socket_server
 from sys import argv, exit
 
@@ -34,8 +35,10 @@ def receiveFloats(client, nfloats):
 def receiveString(client):
     return client.recv(int(receiveFloats(client, 1)[0]))
 
+os.system("clear")
+
 # Serve a socket on the port indicated in the first command-line argument
 client = socket_server.listen(int(argv[1]))
 
 while True:
-	print receiveString(client);
+	print "RCV FROM CLIENT: ", receiveString(client);

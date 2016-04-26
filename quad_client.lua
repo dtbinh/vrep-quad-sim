@@ -1,0 +1,1 @@
+sendString(server, "quad_client.lua: EHLO SERVER[3]")
