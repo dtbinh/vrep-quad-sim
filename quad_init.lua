@@ -22,6 +22,11 @@ quad_init.lua - The initializing script of quad, executed from VREP simulator.
 	SOFTWARE.
 ]]--
 
+-- load networking module
+(loadfile(PWD..'/utils/lua/networking.lua'))();
+-- load data inspection module
+inspect = (loadfile(PWD..'/utils/lua/inspect.lua'))();
+
 -- Thread switch configs
 simSetThreadSwitchTiming(2)
 simSetThreadAutomaticSwitch(true)
@@ -34,8 +39,3 @@ server = server_connect(PWD..'/quad_server.py')
 
 -- initiate a handshake
 initiate_handshake(server)
-
--- close the connection
-server_close(server);
-
-simStopSimulation()
