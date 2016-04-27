@@ -24,7 +24,7 @@ function quad_props_set_thrusts(handles, thrusts)
 end
 
 function quad_pos(handle)
-	return simGetObjectPosition(handles, -1)
+	return simGetObjectPosition(handle, -1)
 end
 
 function quad_alt(handle)
