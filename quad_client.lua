@@ -21,3 +21,19 @@ quad_client.lua - The processing script of quad, executed from VREP simulator.
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
 ]]--
+
+function data_fetch(command)
+	return { ["type"] = "fetch", ["execute"] = command }
+end
+
+sendJSON(server, data_fetch("speeds"))
+print("RCV FROM SERVER: "..inspect(rcvJSON(server)))
+
+
+-- quad_prop_set(quad_prop, {50, 50, 50, 50})
+
+-- Send the desired motor velocities to the 4 rotors:
+for i=1,4,1 do
+    simSetScriptSimulationParameter(propellerScripts[i], 'particleVelocity', 150.4)
+end
+-- simStopSimulation()

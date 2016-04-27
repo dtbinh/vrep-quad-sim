@@ -22,10 +22,32 @@ quad_init.lua - The initializing script of quad, executed from VREP simulator.
 	SOFTWARE.
 ]]--
 
--- load networking module
-(loadfile(PWD..'/utils/lua/networking.lua'))();
--- load data inspection module
-inspect = (loadfile(PWD..'/utils/lua/inspect.lua'))();
+os.execute( "clear" )
+
+-- define modules
+local modules = {
+	'inspect',
+	'networking',
+	'quad_engine'
+};
+-- loading modules
+for index, _module in pairs(modules) do
+	_G[_module] = (loadfile(PWD..'/utils/lua/'.._module..'.lua'))();
+	print("[+] module `".._module..'`');
+end
+
+-- quad_prop = quad_prop_init();
+
+particlesAreVisible=simGetScriptSimulationParameter(sim_handle_self,'particlesAreVisible')
+simSetScriptSimulationParameter(sim_handle_tree,'particlesAreVisible',tostring(particlesAreVisible))
+simulateParticles=simGetScriptSimulationParameter(sim_handle_self,'simulateParticles')
+simSetScriptSimulationParameter(sim_handle_tree,'simulateParticles',tostring(simulateParticles))
+heli=simGetObjectAssociatedWithScript(sim_handle_self)
+
+propellerScripts={-1,-1,-1,-1}
+for i=1,4,1 do
+    propellerScripts[i]=simGetScriptHandle('Quadricopter_propeller_respondable'..i)
+end
 
 -- Thread switch configs
 simSetThreadSwitchTiming(2)
