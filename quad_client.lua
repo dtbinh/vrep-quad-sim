@@ -26,6 +26,10 @@ function data_fetch(command)
 	return { ["type"] = "fetch", ["execute"] = command }
 end
 
+-- set propellers' thrust
+quad_props_set_thrusts(quad_props, vector(4, 5.5))
+
+
 -- sendJSON(server, data_fetch("speeds"))
 -- print("RCV FROM SERVER: "..inspect(rcvJSON(server)))
 

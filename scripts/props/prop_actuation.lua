@@ -1,5 +1,5 @@
 --[[
-utilities.lua - The utilities functions
+prop_actuation.lua - The propellers' actuation executor, executed from VREP simulator.
 
 	Copyright (c) 2016 Dariush Hasanpour
 
@@ -22,18 +22,21 @@ utilities.lua - The utilities functions
 	SOFTWARE.
 ]]--
 
-function scalarTo3D(s, a)
-    return { s * a[3], s * a[7], s * a[11] }
-end
+local thrust = simGetFloatSignal('thrust'..PROPID)
 
-function rotate(x, y, theta)
-    return { math.cos(theta) * x + math.sin(theta) * y, -math.sin(theta) * x + math.cos(theta) * y }
-end
+if thrust ~= nil then
+	local prop_respondable = simGetFloatSignal('Quadricopter_propeller_respondable'..PROPID)
 
-function vector(size, val)
-	v = { };
-	for i = 1, size do
-		v[i] = val;
+	local torque 	= math.pow(-1, PROPID + 1) * .002 * thrust
+	local force 	= particleDensity * particleCount * thrust * math.pi * math.pow(particleSizes, 3) / 6
+
+	local prop_mat 	= simGetObjectMatrix(prop, -1)
+
+	-- for efficiency purposes we don't use `scalarTo3D()` function in `/utils/lua/utilities.lua`
+	local forces  	= { force * prop_mat[3], force * prop_mat[7], force * prop_mat[11] }
+	local torques 	= { torque * prop_mat[3], torque * prop_mat[7], torque * prop_mat[11] }
+
+	if prop_respondable ~= nil then
+		simAddForceAndTorque(prop_respondable, forces, torques)
 	end
-	return v;
 end
