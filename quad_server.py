@@ -35,11 +35,14 @@ meta = net.initiate_handshake(client)
 
 print "Version:", meta["VERSION"], "\nWorking Directory:", meta["PWD"]
 
+print "[OK] Server/Client connection"
+
 while True:
     try:
-        data = net.rcvJSON(client)
-        print "RCV FROM CLIENT:", data
-        net.sendJSON(client, [1, 2, 3, 4])
+        # data = net.rcvJSON(client)
+        # print "RCV FROM CLIENT:", data
+        # net.sendJSON(client, [1, 2, 3, 4])
+        pass
     except Exception as e:
         # inform and exit on exception
         print "ERROR:", str(e), "\n", traceback.format_exc(), exit(0)

@@ -1,0 +1,1 @@
+particleCountPerSecond = 430

@@ -35,7 +35,7 @@ function server_connect(SERVER_EXECUTABLE)
 
     simSetInt32Parameter(sim_intparam_server_port_next, newPortNb)
 
-    local serverResult = simLaunchExecutable(SERVER_EXECUTABLE,portNb,0) 
+    local serverResult = simLaunchExecutable(SERVER_EXECUTABLE, portNb, 0) 
 
     -- Attempt to launch the executable server script
     if (serverResult==-1) then
