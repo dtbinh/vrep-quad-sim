@@ -22,21 +22,15 @@ quad_client.lua - The processing script of quad, executed from VREP simulator.
 	SOFTWARE.
 ]]--
 
-function data_fetch(command)
-	return { ["type"] = "fetch", ["execute"] = command }
+-- send a request to server
+sendJSON(server, { ["type"] = "fetch", ["execute"] = "thrusts?", ["data"] = quad_get_status(quad) })
+-- receive a response
+result = rcvJSON(server);
+-- check if respond is OK?
+if(result["respond"] == "ok") then
+	-- set propellers' thrust
+	quad_props_set_thrusts(handle_quad_props, result["data"])
+else
+	print("Invalid data: "..inspect(result))
+	simStopSimulation()
 end
-
--- set propellers' thrust
-quad_props_set_thrusts(handle_quad_props, vector(4, 5.5))
-
-print(inspect(quad_get_status(quad)))
-
-
--- sendJSON(server, data_fetch("speeds"))
--- print("RCV FROM SERVER: "..inspect(rcvJSON(server)))
-
-
--- quad_prop_set(quad_prop, {50, 50, 50, 50})
-
--- Send the desired motor velocities to the 4 rotors:
--- simStopSimulation()

@@ -23,8 +23,8 @@ quad_server.py - The remote server of quad, launched from VREP simulator.
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 '''
-
 import traceback
+import numpy as np
 from sys import argv, exit
 from utils.py import networking as net
 
@@ -39,10 +39,18 @@ print "[OK] Server/Client connection"
 
 while True:
     try:
-        # data = net.rcvJSON(client)
-        # print "RCV FROM CLIENT:", data
-        # net.sendJSON(client, [1, 2, 3, 4])
-        pass
+    	# recieve data from client
+        request = net.rcvJSON(client)
+        # check request type
+        if(request["type"] == "fetch"):
+        	# check the executive command
+        	if(request["execute"] == "thrusts?"):
+        		# resport the thrusts values
+        		net.sendJSON(client, {"respond": "ok", "data": [5.5, 5.5, 5.5, 5.5]})
+        		continue;
+		# if we reach here, we have invalid command!!
+		print "Invalid request", request;
+		net.sendJSON(client, {"respond": "invalid", "data": False})
     except Exception as e:
         # inform and exit on exception
         print "ERROR:", str(e), "\n", traceback.format_exc(), exit(0)
