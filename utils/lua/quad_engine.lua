@@ -51,6 +51,8 @@ function quad_pos(handle)
 	return simGetObjectPosition(handle, -1)
 end
 
-function quad_alt(handle)
-	assert(false, 'Not Implemented!!')
+function quad_status(handle_pos)
+	return {
+		["position"] = quad_pos(handle_pos)
+	}
 end

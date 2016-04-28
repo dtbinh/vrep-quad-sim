@@ -44,8 +44,11 @@ simSetThreadAutomaticSwitch(true)
 -- get quad's handle
 quad = simGetObjectHandle('Quadricopter_base')
 
+-- define object's current position as center of grid!
+simSetObjectPosition(quad, -1, {0, 0, 0})
+
 -- fetch quad's propellers' handler
-quad_props = quad_props_init();
+handle_quad_props = quad_props_init();
 
 -- connect with server
 server = server_connect(PWD..'/quad_server.py')

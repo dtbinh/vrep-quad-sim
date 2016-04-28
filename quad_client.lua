@@ -27,9 +27,9 @@ function data_fetch(command)
 end
 
 -- set propellers' thrust
-quad_props_set_thrusts(quad_props, vector(4, 5.5))
+quad_props_set_thrusts(handle_quad_props, vector(4, 5.5))
 
-print(inspect(quad_pos(quad)))
+print(inspect(quad_status(quad)))
 
 
 -- sendJSON(server, data_fetch("speeds"))
