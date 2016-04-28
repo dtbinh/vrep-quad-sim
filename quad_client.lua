@@ -29,7 +29,7 @@ end
 -- set propellers' thrust
 quad_props_set_thrusts(handle_quad_props, vector(4, 5.5))
 
-print(inspect(quad_status(quad)))
+print(inspect(quad_get_status(quad)))
 
 
 -- sendJSON(server, data_fetch("speeds"))

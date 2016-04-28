@@ -44,8 +44,10 @@ simSetThreadAutomaticSwitch(true)
 -- get quad's handle
 quad = simGetObjectHandle('Quadricopter_base')
 
--- define object's current position as center of grid!
+-- init quad's initial position
 simSetObjectPosition(quad, -1, {0, 0, 0})
+-- init quad's initial orientation
+simSetObjectOrientation(quad, -1, {0, 0, 0})
 
 -- fetch quad's propellers' handler
 handle_quad_props = quad_props_init();

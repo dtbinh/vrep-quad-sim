@@ -47,12 +47,22 @@ function quad_props_set_thrusts(handles, thrusts)
 	simSetThreadIsFree(false)
 end
 
-function quad_pos(handle)
+function quad_get_position(handle)
 	return simGetObjectPosition(handle, -1)
 end
 
-function quad_status(handle_pos)
+function quad_get_orientation(handle)
+	local o = simGetObjectOrientation(handle, -1)
+	local alpha = o[1]
+    local beta = o[2]
+    local gamma = o[3]
+    local rollpitch = rotate(alpha, beta, gamma)
+    return {-rollpitch[2], rollpitch[1], -gamma}
+end
+
+function quad_get_status(handle)
 	return {
-		["position"] = quad_pos(handle_pos)
+		["position"] = quad_get_position(handle),
+		["orientation"] = quad_get_orientation(handle),
 	}
 end
