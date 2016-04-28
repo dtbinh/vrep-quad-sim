@@ -27,7 +27,7 @@ local thrust = simGetFloatSignal('thrust'..PROPID)
 if thrust ~= nil then
 	local prop_respondable = simGetFloatSignal('Quadricopter_propeller_respondable'..PROPID)
 
-	local torque 	= math.pow(-1, PROPID + 1) * .002 * thrust
+	local torque 	= math.pow(-1, PROPID) * 1e-20 * thrust
 	local force 	= particleDensity * particleCount * thrust * math.pi * math.pow(particleSizes, 3) / 6
 
 	local prop_mat 	= simGetObjectMatrix(prop, -1)
