@@ -35,22 +35,27 @@ meta = net.initiate_handshake(client)
 
 print "Version:", meta["VERSION"], "\nWorking Directory:", meta["PWD"]
 
-print "[OK] Server/Client connection"
+print "[OK] Server/Client connection..."
+
+def make_thrust(t):
+    return [t, t, t, t]
 
 while True:
     try:
-    	# recieve data from client
+        # recieve data from client
         request = net.rcvJSON(client)
         # check request type
         if(request["type"] == "fetch"):
-        	# check the executive command
-        	if(request["execute"] == "thrusts?"):
-        		# resport the thrusts values
-        		net.sendJSON(client, {"respond": "ok", "data": [5.5, 5.5, 5.5, 5.5]})
-        		continue;
-		# if we reach here, we have invalid command!!
-		print "Invalid request", request;
-		net.sendJSON(client, {"respond": "invalid", "data": False})
+            # check the executive command
+            if(request["execute"] == "thrusts?"):
+                tt = make_thrust(5.5)
+                print "Responding thrusts:", tt, "for :", request["data"]["position"];
+                # resport the thrusts values
+                net.sendJSON(client, {"respond": "ok", "data": tt})
+                continue;
+        # if we reach here, we have invalid command!!
+        print "Invalid request", request;
+        net.sendJSON(client, {"respond": "invalid", "data": False})
     except Exception as e:
         # inform and exit on exception
         print "ERROR:", str(e), "\n", traceback.format_exc(), exit(0)
